@@ -37,5 +37,3 @@ Additional Tasks:
     Implement serialization and deserialization functions to save and load library data to/from a file.
     Implement a sorting mechanism to sort books by title, author, or genre.
     Implement a search function to search for books by title, author, or ISBN number.
-
-Note: This task is designed to cover various OOP concepts such as class design, inheritance, encapsulation, polymorphism, and error handling. Make sure to thoroughly test your implementation to ensure correctness and robustness.
