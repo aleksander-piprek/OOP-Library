@@ -15,10 +15,13 @@ class Library
         ~Library();
         
         void addBook(std::string *title, std::string *author, int *isbn, std::string *genre, bool *availability);
-        void removeBook(int isbn);
+        void removeBook(int *isbn);
         void displayBooks();
         void addMember(std::string *name, int *id, bool *status);
         void displayMembers();
+
+        void borrowBook(int *isbn);
+        void returnBook(int *isbn);
 };
 
 class Book : public Library
@@ -33,12 +36,13 @@ class Book : public Library
         Book(std::string* title, std::string* author, int* isbn, std::string* genre, bool* availability);
         ~Book();
 
-        std::string getTitle()     { return *title; }
-        std::string getAuthor()    { return *author; }
-        int getIsbn()              { return *isbn; }
-        std::string getGenre()     { return *genre; }
-        bool getAvailability()     { return *availability; }
+        const std::string getTitle()     { return *title; }
+        const std::string getAuthor()    { return *author; }
+        const int getIsbn()              { return *isbn; }
+        const std::string getGenre()     { return *genre; }
+        const bool getAvailability()     { return *availability; }
 
+        void setAvailability(bool change){ *availability = change;}            
 };
 
 class Member : public Library
@@ -51,7 +55,7 @@ class Member : public Library
         Member(std::string *name, int *id, bool *status);
         ~Member();
 
-        std::string getName()      { return *name; }
-        int getId()                { return *id; }
-        bool getStatus()           { return *status; }
+        const std::string getName()      { return *name; }
+        const int getId()                { return *id; }
+        const bool getStatus()           { return *status; }
 };

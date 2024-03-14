@@ -14,19 +14,34 @@ void Library::addBook(std::string *title, std::string *author, int *isbn, std::s
     bookList.emplace_back(newBook);
 }
 
-void Library::removeBook(int isbn)
+void Library::removeBook(int *isbn)
 {
+    int index = 0;
+    for(auto book : bookList)
+    {
+        if(book->getIsbn() == *isbn)
+            bookList.erase(bookList.begin() + index);
+               
+        index++;
+    }
 }
 
 void Library::displayBooks() 
 {
-    std::cout << "All books: " << std::endl;
-    for(auto book : bookList)
-        std::cout << book->getTitle() 
-                  << " by "<< book->getAuthor() 
-                  << " ISBN: "<< book->getIsbn() 
-                  << " Genre: " << book->getGenre() 
-                  << " Availability: " << book->getAvailability() << std::endl;
+    std::cout << "Displaying all books: " << std::endl;
+    if(!bookList.empty())
+    {
+        for(auto book : bookList)
+            std::cout << book->getTitle() 
+                      << " by "<< book->getAuthor() 
+                      << " ISBN: "<< book->getIsbn() 
+                      << " Genre: " << book->getGenre() 
+                      << " Availability: " << book->getAvailability() << std::endl;
+
+    }
+    else
+        std::cout << "Empty library :(" << std::endl;
+
     std::cout << std::endl;
 }      
 
@@ -38,12 +53,38 @@ void Library::addMember(std::string *name, int *id, bool *status)
 
 void Library::displayMembers()
 {
-    std::cout << "All members" << std::endl;
+    std::cout << "Displaying all members" << std::endl;
     for(auto member : memberList)
         std::cout << "New member: " << member->getName() 
                   << " ID: " << member->getId() 
                   << " Membership status: " << member->getStatus() << std::endl;
     std::cout << std::endl;
+}
+
+void Library::borrowBook(int *isbn)
+{
+    for(auto book : bookList)
+        if(book->getIsbn() == *isbn)
+            if(book->getAvailability())
+            {
+                book->setAvailability(false);
+                std::cout << "Book borrowed" << std::endl;
+            }
+            else
+                std::cout << "Book unavailable" << std::endl;
+}
+
+void Library::returnBook(int *isbn)
+{
+    for(auto book : bookList)
+        if(book->getIsbn() == *isbn)
+            if(!book->getAvailability())
+            {
+                book->setAvailability(true);
+                std::cout << "Book returned" << std::endl;
+            }
+            else
+                std::cout << "Book already in library" << std::endl;
 }
 
 Book::Book(std::string* title, std::string* author, int* isbn, std::string* genre, bool* availability)
@@ -99,9 +140,17 @@ int main()
 
     library->displayMembers();
 
-    library->removeBook(1);
+    library->borrowBook(&_isbn);
 
     library->displayBooks();
+
+    library->returnBook(&_isbn);
+
+    library->displayBooks();
+
+    // library->removeBook(1);
+
+    // library->displayBooks();
 
     delete library;
 
