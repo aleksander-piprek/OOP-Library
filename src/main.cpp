@@ -20,27 +20,30 @@ void Library::removeBook(int isbn)
 
 void Library::displayBooks() 
 {
-    // for(auto book : bookList)
-    //     std::cout << "Created book: " << book->getTitle() 
-    //               << " by "<< book->getAuthor() 
-    //               << " ISBN: "<< book->getIsbn() 
-    //               << " Genre: " << book->getGenre() 
-    //               << " Availability: " << book->getAvailability() << std::endl;
+    std::cout << "All books: " << std::endl;
+    for(auto book : bookList)
+        std::cout << book->getTitle() 
+                  << " by "<< book->getAuthor() 
+                  << " ISBN: "<< book->getIsbn() 
+                  << " Genre: " << book->getGenre() 
+                  << " Availability: " << book->getAvailability() << std::endl;
+    std::cout << std::endl;
 }      
 
-void Library::addMember(std::string name, int id, bool status)
+void Library::addMember(std::string *name, int *id, bool *status)
 {
-    auto newMember = new Member(&name, &id, &status);
+    auto newMember = new Member(name, id, status);
     memberList.emplace_back(newMember);
-    delete newMember;
 }
 
 void Library::displayMembers()
 {
-    // for(auto member : memberList)
-    //     std::cout << "New member: " << member->getName() 
-    //               << " ID: " << member->getId() 
-    //               << " Membership status: " << member->getStatus() << std::endl;
+    std::cout << "All members" << std::endl;
+    for(auto member : memberList)
+        std::cout << "New member: " << member->getName() 
+                  << " ID: " << member->getId() 
+                  << " Membership status: " << member->getStatus() << std::endl;
+    std::cout << std::endl;
 }
 
 Book::Book(std::string* title, std::string* author, int* isbn, std::string* genre, bool* availability)
@@ -86,15 +89,19 @@ int main()
 
     library->addBook(&_title, &_author, &_isbn, &_genre, &_availability);
 
-    library->addMember("Aleksander Piprek", 1, true);
+    std::string _name = "Aleksander Piprek";
+    int _id = 1;
+    bool _status = true;
 
-    // library->displayBooks();
+    library->addMember(&_name, &_id, &_status);
 
-    // library->displayMembers();
+    library->displayBooks();
 
-    // library->removeBook(1);
+    library->displayMembers();
 
-    // library->displayBooks();
+    library->removeBook(1);
+
+    library->displayBooks();
 
     delete library;
 
