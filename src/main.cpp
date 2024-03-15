@@ -72,6 +72,8 @@ void Library::borrowBook(int *isbn)
             }
             else
                 std::cout << "Book unavailable" << std::endl;
+        else
+            std::cout << "Book does not exist" << std::endl;
 }
 
 void Library::returnBook(int *isbn)
